@@ -1,0 +1,131 @@
+// App.js
+import React from "react";
+import CourseTypes from "./CourseTypes";
+import Courses from "./Courses";
+import CourseTypeCourseAssociations from "./CourseTypeCourseAssociations";
+
+function App() {
+    return (
+        <div>
+            <h1>Course Management System</h1>
+            <CourseTypes />
+            <Courses />
+            <CourseTypeCourseAssociations />
+        </div>
+    );
+}
+
+export default App;
+
+// CourseTypes.js
+import React, { useState } from "react";
+
+function CourseTypes() {
+    const [courseTypes, setCourseTypes] = useState([]);
+    const [newType, setNewType] = useState("");
+
+    const addCourseType = () => {
+        if (newType) {
+            setCourseTypes([...courseTypes, newType]);
+            setNewType("");
+        }
+    };
+
+    return (
+        <div>
+            <h2>Course Types</h2>
+            <input
+                type="text"
+                placeholder="Add a new course type"
+                value={newType}
+                onChange={(e) => setNewType(e.target.value)}
+            />
+            <button onClick={addCourseType}>Add Course Type</button>
+            <ul>
+                {courseTypes.map((type, index) => (
+                    <li key={index}>{type}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default CourseTypes;
+
+// Courses.js
+import React, { useState } from "react";
+
+function Courses() {
+    const [courses, setCourses] = useState([]);
+    const [newCourse, setNewCourse] = useState("");
+
+    const addCourse = () => {
+        if (newCourse) {
+            setCourses([...courses, newCourse]);
+            setNewCourse("");
+        }
+    };
+
+    return (
+        <div>
+            <h2>Courses</h2>
+            <input
+                type="text"
+                placeholder="Add a new course"
+                value={newCourse}
+                onChange={(e) => setNewCourse(e.target.value)}
+            />
+            <button onClick={addCourse}>Add Course</button>
+            <ul>
+                {courses.map((course, index) => (
+                    <li key={index}>{course}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default Courses;
+
+// CourseTypeCourseAssociations.js
+import React, { useState } from "react";
+
+function CourseTypeCourseAssociations() {
+    const [associations, setAssociations] = useState([]);
+    const [course, setCourse] = useState("");
+    const [type, setType] = useState("");
+
+    const addAssociation = () => {
+        if (course && type) {
+            setAssociations([...associations, { course, type }]);
+            setCourse("");
+            setType("");
+        }
+    };
+
+    return (
+        <div>
+            <h2>Course Associations</h2>
+            <input
+                type="text"
+                placeholder="Course"
+                value={course}
+                onChange={(e) => setCourse(e.target.value)}
+            />
+            <input
+                type="text"
+                placeholder="Type"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+            />
+            <button onClick={addAssociation}>Associate</button>
+            <ul>
+                {associations.map((assoc, index) => (
+                    <li key={index}>{`${assoc.course} - ${assoc.type}`}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default CourseTypeCourseAssociations;
